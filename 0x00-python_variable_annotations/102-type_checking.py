@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-"""Duck typing - first element of a sequence"""
+"""Type Checking"""
 
 from typing import List, Tuple
 
 
 def zoom_array(lst: Tuple, factor: int = 2) -> List:
+    """Duck Typing"""
     zoomed_in: List = [
         item for item in lst
         for i in range(factor)
