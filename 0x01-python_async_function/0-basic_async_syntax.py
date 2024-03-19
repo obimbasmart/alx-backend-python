@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
+"""Bascs of Async IO"""
+
 import asyncio
 from random import uniform
-
-"""Bascs of Async IO"""
 
 
 async def wait_random(max_delay: int = 10) -> float:
