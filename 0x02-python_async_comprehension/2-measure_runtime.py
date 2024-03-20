@@ -12,6 +12,6 @@ async def measure_runtime() -> float:
     """measure coroutine runtime"""
     start_time = time.perf_counter()
     tasks = [asyncio.create_task(async_comprehension()) for _ in range(4)]
-    asyncio.gather(*tasks, return_exceptions=True)
+    await asyncio.gather(*tasks)
     elaspsed_time = time.perf_counter() - start_time
     return elaspsed_time
