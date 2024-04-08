@@ -72,7 +72,7 @@ class TestMemoize(unittest.TestCase):
                 return self.a_method()
 
         obj = TestClass()
-        obj.a_method = MagicMock(return_value=20)
+        obj.a_method = MagicMock(return_value=42)
 
         obj.a_property()
         obj.a_property()
