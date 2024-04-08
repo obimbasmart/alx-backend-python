@@ -6,7 +6,7 @@
 import unittest
 from unittest.mock import (patch, MagicMock)
 from parameterized import parameterized
-from utils import access_nested_map, get_json
+from utils import access_nested_map, get_json, memoize
 from typing import (
     Mapping,
     Sequence,
@@ -55,3 +55,25 @@ class TestGetJson(unittest.TestCase):
         mocked_request.get.return_value = mock_response
 
         self.assertEqual(get_json(test_url), payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """Test memoize"""
+
+    def test_memoize(self):
+        """test memoize decorator"""
+        class TestClass:
+
+            def a_method(self):
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+
+        obj = TestClass()
+        obj.a_method = MagicMock(return_value=20)
+
+        obj.a_property()
+        obj.a_property()
+        obj.a_method.assert_called_once()
