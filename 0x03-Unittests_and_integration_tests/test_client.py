@@ -22,9 +22,11 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     @patch("client.get_json")
     def test_org(self, org_name: str, mocked_get_json):
-        """test org"""
-        github_org = GithubOrgClient(org_name).org()
-        mocked_get_json.assert_called_once()
+        """Test that Github client returns correct value"""
+        github_org = GithubOrgClient(org_name)
+        github_org.org()
+        mocked_get_json.assert_called_once_with(
+            github_org.ORG_URL.format(org=org_name))
 
     def test_public_repos_url(self):
         """test public repos url"""
