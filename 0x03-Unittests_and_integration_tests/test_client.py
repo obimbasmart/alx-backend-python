@@ -47,3 +47,12 @@ class TestGithubOrgClient(unittest.TestCase):
             mocked_prop.return_value = "example.com"
             result = GithubOrgClient("Google").public_repos()
             self.assertEqual(result, ["NBC", "PG"])
+
+    @parameterized.expand([
+        ({"license": {"key": "my_license"}}, "my_license", True),
+        ({"license": {"key": "other_license"}}, "my_license", False)
+    ])
+    def test_has_license(self, repo: Dict, license_key: str, expected: bool):
+        """--- --- ---"""
+        result = GithubOrgClient("google").has_license(repo, license_key)
+        self.assertEqual(result, expected)
