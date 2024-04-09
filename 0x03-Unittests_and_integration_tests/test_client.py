@@ -54,5 +54,5 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, repo: Dict, license_key: str, expected: bool):
         """--- --- ---"""
-        result = GithubOrgClient("google").has_license(repo, license_key)
+        result = GithubOrgClient.has_license(repo, license_key)
         self.assertEqual(result, expected)
