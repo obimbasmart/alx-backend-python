@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-"""Parameterize a unit test
+"""Test Utils
 """
 
 import unittest
@@ -71,9 +71,9 @@ class TestMemoize(unittest.TestCase):
             def a_property(self):
                 return self.a_method()
 
-        obj = TestClass()
-        obj.a_method = MagicMock(return_value=42)
-
-        obj.a_property()
-        obj.a_property()
-        obj.a_method.assert_called_once()
+        with patch.object(TestClass, "a_method") as mocked_a_method:
+            mocked_a_method.return_value = 42
+            obj = TestClass()
+            obj.a_property()
+            obj.a_property()
+            mocked_a_method.assert_called_once()
