@@ -28,20 +28,22 @@ class TestGithubOrgClient(unittest.TestCase):
         github_org.org()
         mocked_get_json.assert_called_once_with(endpoint)
 
-    # def test_public_repos_url(self):
-    #     """test public repos url"""
-    #     with patch('client.GithubOrgClient.org',
-    #                new_callable=PropertyMock) as mocked_prop:
-    #         mocked_prop.return_value = {"repos_url": "www"}
-    #         result = GithubOrgClient("Google")._public_repos_url
-    #         self.assertEqual(result, "www")
+    def test_public_repos_url(self):
+        """---- -- -----"""
+        with patch('client.GithubOrgClient.org',
+                   new_callable=PropertyMock) as mocked_prop:
+            mocked_prop.return_value = {"repos_url": "www"}
+            result = GithubOrgClient("Google")._public_repos_url
+            self.assertEqual(result, "www")
 
-    # @patch("client.get_json")
-    # def test_public_repos(self, mocked_get_json):
-    #     """test public repos"""
-    #     with patch('client.GithubOrgClient.org',
-    #                new_callable=PropertyMock) as mocked_prop:
-    #         mocked_prop.return_value = {"repos_url": "www"}
-    #         mocked_get_json.return_value = MagicMock(return_value={})
-    #         result = GithubOrgClient("Google").public_repos()
-    #         self.assertEqual(result, [])
+    @patch("client.get_json")
+    def test_public_repos(self, mocked_get_json):
+        """---- - -------"""
+        payload = [{"name": "NBC"}, {"name": "PG"}]
+        mocked_get_json.return_value = payload
+
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mocked_prop:
+            mocked_prop.return_value = "example.com"
+            result = GithubOrgClient("Google").public_repos()
+            self.assertEqual(result, ["NBC", "PG"])
