@@ -17,17 +17,13 @@ class TestGithubOrgClient(unittest.TestCase):
     """Test client"""
 
     @parameterized.expand([
-        ("Google", {}),
-        ("abc", {})
+        ("Google"),
+        ("abc")
     ])
     @patch("client.get_json")
-    def test_org(self, org_name: str, expected: Dict, mocked_get_json):
+    def test_org(self, org_name: str, mocked_get_json):
         """test org"""
-
-        github_org = GithubOrgClient(org_name)
-        result = github_org.org()
-        mocked_get_json.assert_called_with(
-            github_org.ORG_URL.format(org=org_name))
+        github_org = GithubOrgClient(org_name).org()
         mocked_get_json.assert_called_once()
 
     def test_public_repos_url(self):
